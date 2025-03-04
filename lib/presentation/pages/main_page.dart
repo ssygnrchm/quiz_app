@@ -10,6 +10,22 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(), body: Center(child: Text("main screen")));
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 16),
+            child: Row(
+              children: [
+                Expanded(child: Text("previous")),
+                Text("7/10"),
+                Expanded(child: SizedBox()),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
