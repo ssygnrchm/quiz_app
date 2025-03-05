@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
         minimumSize: Size(MediaQuery.sizeOf(context).width, 59),
       ),
       onPressed: onPressed,
-      child: CustomText(string: title, fsize: 24, fweight: FontWeight.w600),
+      child: CustomText(title: title, fsize: 24, fweight: FontWeight.w600),
     );
   }
 }

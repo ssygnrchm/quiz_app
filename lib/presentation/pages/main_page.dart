@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/presentation/widgets/custom_button.dart';
+import 'package:quiz_app/presentation/widgets/custom_text.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -15,8 +17,9 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   // bool _showCircle = true;
 
   Timer? timer;
-  static const maxSecond = 30;
+  static const maxSecond = 29;
   int second = maxSecond;
+  bool isTimerRunning = true;
 
   void startTimer() {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -24,6 +27,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         if (second == 0) {
           setState(() {
             timer.cancel();
+            isTimerRunning = false;
+            controller.stop();
             // _showCircle = !_showCircle;
           });
         } else {
@@ -53,6 +58,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   void dispose() {
     // TODO: implement dispose
     controller.dispose();
+    timer?.cancel();
     super.dispose();
   }
 
@@ -65,6 +71,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 16),
             child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
@@ -103,9 +110,10 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 Stack(
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         sizedBox(
-                          height: MediaQuery.sizeOf(context).height / 16,
+                          height: MediaQuery.sizeOf(context).height / 18,
                         ),
                         Card(
                           shape: RoundedRectangleBorder(
@@ -137,22 +145,34 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(2, 5),
+                              color: Colors.grey,
+                              blurRadius: 5.0,
+                              spreadRadius: 4.0,
+                            ),
+                          ],
                         ),
-                        child: Center(child: Text(second.toString())),
+                        child: Center(
+                          child: CustomText(
+                            title: second.toString(),
+                            fcolor: Color.fromARGB(255, 0, 70, 67),
+                            fsize: 32,
+                          ),
+                        ),
                       ),
                     ),
                     Align(
                       alignment: Alignment.topCenter,
                       child: CircularProgressIndicator(
-                        value: controller.value,
+                        value: isTimerRunning ? controller.value : 0.0,
                         strokeWidth: 10,
                         strokeCap: StrokeCap.round,
-                        backgroundColor: const Color.fromARGB(
-                          255,
-                          171,
-                          209,
-                          198,
-                        ),
+                        backgroundColor:
+                            isTimerRunning
+                                ? const Color.fromARGB(255, 171, 209, 198)
+                                : const Color.fromARGB(255, 0, 70, 67),
                         constraints: BoxConstraints(
                           minHeight: 86,
                           minWidth: 86,
@@ -161,6 +181,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     ),
                   ],
                 ),
+                sizedBox(height: MediaQuery.sizeOf(context).height / 28),
                 ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   shrinkWrap: true,
@@ -191,6 +212,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     );
                   },
                 ),
+                sizedBox(height: MediaQuery.sizeOf(context).height / 28),
+                CustomButton(title: 'Next', onPressed: () {}),
               ],
             ),
           ),

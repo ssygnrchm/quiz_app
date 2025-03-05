@@ -25,14 +25,14 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            sizedBox(height: MediaQuery.sizeOf(context).height / 5),
+            // sizedBox(height: MediaQuery.sizeOf(context).height / 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [Image.asset("assets/images/circle_logo.png")],
             ),
-            sizedBox(height: MediaQuery.sizeOf(context).height / 7),
+            // sizedBox(height: MediaQuery.sizeOf(context).height / 7),
             Column(
               spacing: 10,
               children: [
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-            sizedBox(height: MediaQuery.sizeOf(context).height / 5),
+            // sizedBox(height: MediaQuery.sizeOf(context).height / 5),
             CustomButton(
               title: "Start",
               onPressed: () {
