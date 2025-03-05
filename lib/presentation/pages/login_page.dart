@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/presentation/pages/main_page.dart';
+import 'package:quiz_app/presentation/widgets/custom_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -67,32 +68,14 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             sizedBox(height: MediaQuery.sizeOf(context).height / 5),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                minWidth: MediaQuery.sizeOf(context).width,
-                minHeight: 59,
-                maxHeight: MediaQuery.sizeOf(context).width / 4,
-              ),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll<Color>(
-                    const Color.fromARGB(255, 248, 198, 96),
-                  ),
-                  foregroundColor: WidgetStatePropertyAll<Color>(Colors.white),
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainPage()),
-                  );
-                },
-                child: text("Start", fsize: 24, fweight: FontWeight.w600),
-              ),
+            CustomButton(
+              title: "Start",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainPage()),
+                );
+              },
             ),
           ],
         ),
