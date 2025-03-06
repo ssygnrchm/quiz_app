@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/datasource/local/pref_handler.dart';
 import 'package:quiz_app/presentation/pages/main_page.dart';
 import 'package:quiz_app/presentation/widgets/custom_button.dart';
 
@@ -10,6 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController _emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 TextField(
+                  controller: _emailController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -71,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
             CustomButton(
               title: "Start",
               onPressed: () {
+                PrefHandler.saveId(_emailController.text);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MainPage()),

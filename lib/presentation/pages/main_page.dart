@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/datasource/local/pref_handler.dart';
+import 'package:quiz_app/presentation/pages/login_page.dart';
 import 'package:quiz_app/presentation/widgets/custom_button.dart';
 import 'package:quiz_app/presentation/widgets/custom_text.dart';
 
@@ -103,7 +105,30 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       fcolor: Colors.black,
                       fweight: FontWeight.w600,
                     ),
-                    Expanded(child: SizedBox()),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          PrefHandler.removeId();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            text(
+                              'Logout',
+                              fsize: 12,
+                              fweight: FontWeight.w600,
+                              fcolor: const Color.fromARGB(255, 0, 70, 67),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 sizedBox(height: MediaQuery.sizeOf(context).height / 28),
@@ -212,8 +237,14 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     );
                   },
                 ),
-                sizedBox(height: MediaQuery.sizeOf(context).height / 28),
+                // sizedBox(height: MediaQuery.sizeOf(context).height / 28),
                 CustomButton(title: 'Next', onPressed: () {}),
+                CustomButton(
+                  title: 'Reset Introduction',
+                  onPressed: () {
+                    PrefHandler.saveStatus(false);
+                  },
+                ),
               ],
             ),
           ),
