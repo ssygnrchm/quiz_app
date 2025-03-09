@@ -1,6 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quiz_app/data/datasource/local/option_memory_datasource.dart';
+import 'package:quiz_app/data/datasource/local/question_memory_datasource.dart';
+import 'package:quiz_app/data/repositories/question_options_repository_impl.dart';
 // import 'package:quiz_app/presentation/pages/login_page.dart';
 import 'package:quiz_app/presentation/pages/splash_page.dart';
+import 'package:quiz_app/presentation/providers/question_option_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,16 +19,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Quiz App',
-      theme: ThemeData(
-        fontFamily: 'Baloo 2',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 0, 70, 67),
+    return MultiProvider(
+      providers: [
+        // Provider(
+        //   create:
+        //       (_) => QuestionOptionsRepositoryImpl(
+        //         questionDatasource: QuestionMemoryDatasource(),
+        //         optionMemoryDatasource: OptionMemoryDatasource(),
+        //       ),
+        // ),
+        // ChangeNotifierProxyProvider(create: (context)=>QuestionOptionProvider(Provider.of<QuestionOptionsRepositoryImpl>(context, listen: false)), update: (context, repository, previous) => previous!..set)
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Quiz App',
+        theme: ThemeData(
+          fontFamily: 'Baloo 2',
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 0, 70, 67),
+          ),
         ),
+        home: SplashPage(),
       ),
-      home: SplashPage(),
     );
   }
 }
