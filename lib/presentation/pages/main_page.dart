@@ -16,6 +16,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   late AnimationController controller;
   bool isSelected = false;
+  Map<String, bool> selectedOptions = {};
   // bool _showCircle = true;
 
   Timer? timer;
@@ -41,6 +42,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       });
     });
   }
+
+  void resetTimer() {}
 
   @override
   void initState() {

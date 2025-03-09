@@ -10,7 +10,8 @@ class QuestionOptionProvider extends ChangeNotifier {
   String _currentId = '1';
   late String _question;
   List<Option> _options = [];
-  // QuestionModel? _question = repository.getQuestionById(_currentId);
+  int _currentIndex = 0;
+  final int _totalQuestions = 10;
 
   QuestionOptionProvider(this.repository) {
     loadQuestion(_currentId);
@@ -18,12 +19,17 @@ class QuestionOptionProvider extends ChangeNotifier {
   }
 
   String get currentId => _currentId;
-
   String get question => _question;
-
   List<Option> get options => _options;
+  int get currentIndex => _currentIndex;
+  int get totalQuestions => _totalQuestions;
+  String get progress => "${_currentIndex + 1}/$_totalQuestions";
 
-  void setRepository(QuestionOptionRepository newRepository) {}
+  void setRepository(QuestionOptionRepository newRepository) {
+    repository = newRepository;
+    loadQuestion(_currentId);
+    loadOptions(_currentId);
+  }
 
   void loadQuestion(String id) {
     _question = repository.getQuestionById(id)!.title.toString();
@@ -34,4 +40,28 @@ class QuestionOptionProvider extends ChangeNotifier {
     _options = repository.getOption(id);
     notifyListeners();
   }
+
+  bool isNextAvailable() {
+    return _currentIndex < _totalQuestions - 1;
+  }
+
+  void nextQuestion() {
+    if (isNextAvailable()) {
+      _currentIndex++;
+      _currentId = (_currentIndex + 1).toString();
+      loadQuestion(_currentId);
+      loadOptions(_currentId);
+    }
+  }
+
+  void previousQuestion() {
+    if (_currentIndex > 0) {
+      _currentIndex--;
+      _currentId = (_currentIndex + 1).toString();
+      loadQuestion(_currentId);
+      loadOptions(_currentId);
+    }
+  }
+
+  // currentid and currentindex, should be the same variable.
 }
